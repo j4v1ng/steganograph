@@ -41,6 +41,7 @@ public class TextBasedEndpoint {
 
     }
 
+    @CrossOrigin
     @RequestMapping(value = DE_STEG_ENDPOINT, method = POST, produces = APPLICATION_JSON_VALUE)
     public String deSteg(@RequestPart(value = "image", required = true) final MultipartFile image) throws IOException {
 
