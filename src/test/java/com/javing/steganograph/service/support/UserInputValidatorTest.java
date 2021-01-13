@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserInputValidatorTest {
 
@@ -18,7 +18,7 @@ class UserInputValidatorTest {
 
         assertThrows(UserInputValidationException.class, () -> {
             userInputValidator.validate(someBytes, arg);
-        });
+        }, "Wrong input, only letters and numbers are accepted!");
     }
 
     @Test
@@ -26,7 +26,7 @@ class UserInputValidatorTest {
 
         assertThrows(UserInputValidationException.class, () -> {
             userInputValidator.validate(null, "some message");
-        });
+        }, "File not present!");
     }
 
     @Test
@@ -36,7 +36,15 @@ class UserInputValidatorTest {
 
         assertThrows(UserInputValidationException.class, () -> {
             userInputValidator.validate(someBytes, "some message");
-        });
+        }, "File not present!");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"abc", "AbC", "123", "a1", "A1"})
+    void shouldPassValidation(String arg) {
+
+        assertDoesNotThrow(() -> {
+            userInputValidator.validate(new byte[]{1}, "some message");
+        });
+    }
 }
