@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 import static org.springframework.http.MediaType.*;
+import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -61,13 +62,14 @@ public class SteganographyEndpoint {
     ResponseEntity<Resource> imageSteg(@RequestParam(value = "imagePayload", required = true) final MultipartFile imagePayload,
                                        @RequestParam(value = "imageWrapper", required = true) final MultipartFile imageWrapper) throws IOException {
 
+        return notFound().build();
         //TODO validate both images
-        byte[] steg = imageStegService.steg(imagePayload.getBytes(), imageWrapper.getBytes());
-
-        return ok()
-                .contentLength(steg.length)
-                .contentType(IMAGE_PNG)
-                .body(new ByteArrayResource(steg));
+//        byte[] steg = imageStegService.steg(imagePayload.getBytes(), imageWrapper.getBytes());
+//
+//        return ok()
+//                .contentLength(steg.length)
+//                .contentType(IMAGE_PNG)
+//                .body(new ByteArrayResource(steg));
 
     }
 
@@ -75,12 +77,13 @@ public class SteganographyEndpoint {
     @RequestMapping(value = IMG_DE_STEG_ENDPOINT, method = POST, produces = IMAGE_PNG_VALUE)
     public ResponseEntity<Resource> imageDeSteg(@RequestPart(value = "image", required = true) final MultipartFile image) throws IOException {
 
+        return notFound().build();
         //TODO add validation
-        byte[] payload = imageDeStegService.deSteg(image.getBytes());
-
-        return ok()
-                .contentLength(payload.length)
-                .contentType(IMAGE_PNG)
-                .body(new ByteArrayResource(payload));
+//        byte[] payload = imageDeStegService.deSteg(image.getBytes());
+//
+//        return ok()
+//                .contentLength(payload.length)
+//                .contentType(IMAGE_PNG)
+//                .body(new ByteArrayResource(payload));
     }
 }

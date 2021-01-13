@@ -15,7 +15,7 @@ import static javax.imageio.ImageIO.read;
 @AllArgsConstructor
 @Service
 public class ImageDeStegService {
-
+//TODO FIX THIS TO SUPPORT IMAGE DE-STEG
     private final PointerService pointerService;
 
     public byte[] deSteg(byte[] fileBytes) throws IOException {
