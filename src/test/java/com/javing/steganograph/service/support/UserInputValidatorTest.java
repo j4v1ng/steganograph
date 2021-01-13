@@ -44,7 +44,7 @@ class UserInputValidatorTest {
     void shouldPassValidation(String arg) {
 
         assertDoesNotThrow(() -> {
-            userInputValidator.validate(new byte[]{1}, "some message");
+            userInputValidator.validate(new byte[]{1}, arg);
         });
     }
 }
