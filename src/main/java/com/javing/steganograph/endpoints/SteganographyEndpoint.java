@@ -1,6 +1,7 @@
 package com.javing.steganograph.endpoints;
 
 import com.javing.steganograph.service.support.UserInputValidator;
+import com.javing.steganograph.service.textbased.ImageDeStegService;
 import com.javing.steganograph.service.textbased.ImageStegService;
 import com.javing.steganograph.service.textbased.TextDeStegService;
 import com.javing.steganograph.service.textbased.TextStegService;
@@ -24,10 +25,12 @@ public class SteganographyEndpoint {
     private static final String TEXT_STEG_ENDPOINT = "/steg/{text}";
     private static final String TEXT_DE_STEG_ENDPOINT = "/desteg";
     private static final String IMG_STEG_ENDPOINT = "/imgsteg";
+    private static final String IMG_DE_STEG_ENDPOINT = "/imgdesteg";
     private final UserInputValidator userInputValidator;
     private final TextStegService textStegService;
     private final TextDeStegService textDeStegService;
     private final ImageStegService imageStegService;
+    private final ImageDeStegService imageDeStegService;
 
     @CrossOrigin
     @RequestMapping(value = TEXT_STEG_ENDPOINT, method = POST, produces = IMAGE_PNG_VALUE)
@@ -66,5 +69,18 @@ public class SteganographyEndpoint {
                 .contentType(IMAGE_PNG)
                 .body(new ByteArrayResource(steg));
 
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = IMG_DE_STEG_ENDPOINT, method = POST, produces = IMAGE_PNG_VALUE)
+    public ResponseEntity<Resource> imageDeSteg(@RequestPart(value = "image", required = true) final MultipartFile image) throws IOException {
+
+        //TODO add validation
+        byte[] payload = imageDeStegService.deSteg(image.getBytes());
+
+        return ok()
+                .contentLength(payload.length)
+                .contentType(IMAGE_PNG)
+                .body(new ByteArrayResource(payload));
     }
 }
