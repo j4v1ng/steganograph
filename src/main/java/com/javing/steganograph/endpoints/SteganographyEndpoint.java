@@ -23,7 +23,7 @@ public class SteganographyEndpoint {
 
     private static final String TEXT_STEG_ENDPOINT = "/steg/{text}";
     private static final String TEXT_DE_STEG_ENDPOINT = "/desteg";
-    private static final String IMG_STEG_ENDPOINT = "/imgsteg}";
+    private static final String IMG_STEG_ENDPOINT = "/imgsteg";
     private final UserInputValidator userInputValidator;
     private final TextStegService textStegService;
     private final TextDeStegService textDeStegService;
