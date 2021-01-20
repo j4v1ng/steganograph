@@ -1,4 +1,4 @@
-package com.javing.steganograph.endpoints;
+package com.javing.steganograph.web;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

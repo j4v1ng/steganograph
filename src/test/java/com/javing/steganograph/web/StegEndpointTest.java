@@ -1,9 +1,9 @@
-package com.javing.steganograph.endpoints;
+package com.javing.steganograph.web;
 
 
-import com.javing.steganograph.service.support.UserInputValidator;
-import com.javing.steganograph.service.textbased.TextDeStegService;
-import com.javing.steganograph.service.textbased.TextStegService;
+import com.javing.steganograph.service.UserInputValidator;
+import com.javing.steganograph.service.TextDeStegService;
+import com.javing.steganograph.service.StegService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,16 +21,16 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 
 @ExtendWith(MockitoExtension.class)
-class SteganographyEndpointTest {
+class StegEndpointTest {
 
     @Mock
     private UserInputValidator userInputValidator;
     @Mock
-    private TextStegService textStegService;
+    private StegService stegService;
     @Mock
     private TextDeStegService textDeStegService;
     @InjectMocks
-    private SteganographyEndpoint steganographyEndpoint;
+    private StegEndpoint stegEndpoint;
 
     @Test
     void shouldReplyWith200ForCorrectValidationDuringSteg() throws IOException {
@@ -39,8 +39,8 @@ class SteganographyEndpointTest {
         byte[] imageInput = new byte[1];
         doNothing().when(userInputValidator).validate(imageInput, message);
 
-        when(textStegService.steg(message, imageInput)).thenReturn(imageInput);
-        ResponseEntity<Resource> response = steganographyEndpoint.textSteg(message, new MockMultipartFile("filename.png", imageInput));
+        when(stegService.steg(message, imageInput)).thenReturn(imageInput);
+        ResponseEntity<Resource> response = stegEndpoint.textSteg(message, new MockMultipartFile("filename.png", imageInput));
 
         assertThat(response.getStatusCode()).isEqualTo(OK);
     }
@@ -53,7 +53,7 @@ class SteganographyEndpointTest {
         doNothing().when(userInputValidator).validate(imageInput);
 
         when(textDeStegService.deSteg(imageInput)).thenReturn(message);
-        String response = steganographyEndpoint.textDeSteg(new MockMultipartFile("filename.png", imageInput));
+        String response = stegEndpoint.textDeSteg(new MockMultipartFile("filename.png", imageInput));
 
         assertThat(response).isEqualTo(message);
     }

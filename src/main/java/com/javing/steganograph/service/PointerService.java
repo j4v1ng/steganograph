@@ -1,4 +1,4 @@
-package com.javing.steganograph.service.support;
+package com.javing.steganograph.service;
 
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 @Service
 public class PointerService {
 
-    public void moveToNextPixel(Point point, BufferedImage image) {
+    public void nextPixel(Point point, BufferedImage image) {
 
         if (point.x == (image.getWidth() - 1)) {
             point.x = -1;

@@ -1,6 +1,5 @@
-package com.javing.steganograph.service.textbased;
+package com.javing.steganograph.service;
 
-import com.javing.steganograph.service.support.PointerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +51,7 @@ public class TextDeStegService {
             }
 
             extractedValue = extractedValue << 1;
-            pointerService.moveToNextPixel(point, image);
+            pointerService.nextPixel(point, image);
             bitsInByte++;
         }
 

@@ -1,4 +1,4 @@
-package com.javing.steganograph.endpoints;
+package com.javing.steganograph.web;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 

@@ -1,6 +1,6 @@
-package com.javing.steganograph.service.support;
+package com.javing.steganograph.service;
 
-import com.javing.steganograph.endpoints.UserInputValidationException;
+import com.javing.steganograph.web.UserInputValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

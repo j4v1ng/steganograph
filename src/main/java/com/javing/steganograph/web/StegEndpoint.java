@@ -1,8 +1,8 @@
-package com.javing.steganograph.endpoints;
+package com.javing.steganograph.web;
 
-import com.javing.steganograph.service.support.UserInputValidator;
-import com.javing.steganograph.service.textbased.TextDeStegService;
-import com.javing.steganograph.service.textbased.TextStegService;
+import com.javing.steganograph.service.UserInputValidator;
+import com.javing.steganograph.service.TextDeStegService;
+import com.javing.steganograph.service.StegService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -18,12 +18,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @AllArgsConstructor
 @RestController
-public class SteganographyEndpoint {
+public class StegEndpoint {
 
     private static final String TEXT_STEG_ENDPOINT = "/steg/{text}";
     private static final String TEXT_DE_STEG_ENDPOINT = "/desteg";
     private final UserInputValidator userInputValidator;
-    private final TextStegService textStegService;
+    private final StegService stegService;
     private final TextDeStegService textDeStegService;
 
     @CrossOrigin
@@ -32,7 +32,7 @@ public class SteganographyEndpoint {
     ResponseEntity<Resource> textSteg(@PathVariable String text, @RequestParam(value = "image", required = true) final MultipartFile image) throws IOException {
 
         userInputValidator.validate(image.getBytes(), text);
-        byte[] steg = textStegService.steg(text, image.getBytes());
+        byte[] steg = stegService.steg(text, image.getBytes());
 
         return ok()
                 .contentLength(steg.length)

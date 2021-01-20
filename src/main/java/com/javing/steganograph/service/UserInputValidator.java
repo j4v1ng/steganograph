@@ -1,6 +1,6 @@
-package com.javing.steganograph.service.support;
+package com.javing.steganograph.service;
 
-import com.javing.steganograph.endpoints.UserInputValidationException;
+import com.javing.steganograph.web.UserInputValidationException;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
