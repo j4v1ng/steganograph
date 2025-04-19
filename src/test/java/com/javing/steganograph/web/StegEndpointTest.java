@@ -1,9 +1,7 @@
 package com.javing.steganograph.web;
 
-
+import com.javing.steganograph.service.SteganographyService;
 import com.javing.steganograph.service.UserInputValidator;
-import com.javing.steganograph.service.TextDeStegService;
-import com.javing.steganograph.service.StegService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,43 +18,52 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 
+/**
+ * Tests for the StegEndpoint controller.
+ */
 @ExtendWith(MockitoExtension.class)
 class StegEndpointTest {
 
     @Mock
     private UserInputValidator userInputValidator;
+
     @Mock
-    private StegService stegService;
-    @Mock
-    private TextDeStegService textDeStegService;
+    private SteganographyService steganographyService;
+
     @InjectMocks
     private StegEndpoint stegEndpoint;
 
     @Test
-    void shouldReplyWith200ForCorrectValidationDuringSteg() throws IOException {
-
+    void shouldReplyWith200ForCorrectValidationDuringEncoding() throws IOException {
+        // Arrange
         String message = "some text";
         byte[] imageInput = new byte[1];
+        MockMultipartFile imageFile = new MockMultipartFile("filename.png", imageInput);
+
         doNothing().when(userInputValidator).validate(imageInput, message);
+        when(steganographyService.encodeMessage(message, imageInput)).thenReturn(imageInput);
 
-        when(stegService.steg(message, imageInput)).thenReturn(imageInput);
-        ResponseEntity<Resource> response = stegEndpoint.textSteg(message, new MockMultipartFile("filename.png", imageInput));
+        // Act
+        ResponseEntity<Resource> response = stegEndpoint.encodeMessage(message, imageFile);
 
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(OK);
     }
 
     @Test
-    void shouldReplyWith200ForCorrectValidationDuringDeSteg() throws IOException {
-
+    void shouldReplyWith200ForCorrectValidationDuringDecoding() throws IOException {
+        // Arrange
         String message = "some text";
         byte[] imageInput = new byte[1];
+        MockMultipartFile imageFile = new MockMultipartFile("filename.png", imageInput);
+
         doNothing().when(userInputValidator).validate(imageInput);
+        when(steganographyService.decodeMessage(imageInput)).thenReturn(message);
 
-        when(textDeStegService.deSteg(imageInput)).thenReturn(message);
-        String response = stegEndpoint.textDeSteg(new MockMultipartFile("filename.png", imageInput));
+        // Act
+        String response = stegEndpoint.decodeMessage(imageFile);
 
+        // Assert
         assertThat(response).isEqualTo(message);
     }
-
-
 }
