@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Gradle
+.gradle
+build/
+!build/libs/*.jar
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+
+# Logs
+logs/
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db

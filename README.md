@@ -32,8 +32,11 @@ Steganography is the practice of concealing a message within another non-secret 
 
 - Java 11 or higher
 - Gradle (or use the included Gradle wrapper)
+- Docker (optional, for containerized deployment)
 
 ### Running the Application
+
+#### Using Gradle
 
 1. Clone the repository
 2. Navigate to the project directory
@@ -44,6 +47,24 @@ Steganography is the practice of concealing a message within another non-secret 
 ```
 
 The application will start on port 8081 by default. You can access the web interface by navigating to `http://localhost:8081` in your web browser.
+
+#### Using Docker
+
+1. Clone the repository
+2. Navigate to the project directory
+3. Build the Docker image:
+
+```bash
+docker build -t steganograph .
+```
+
+4. Run the Docker container:
+
+```bash
+docker run -p 8081:8081 steganograph
+```
+
+The application will be accessible at `http://localhost:8081` just like the Gradle version.
 
 ## Using the Web Interface
 
