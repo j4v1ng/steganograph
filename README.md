@@ -4,6 +4,12 @@ A Java-based application for hiding text messages within images using steganogra
 
 ![Application Instructions](src/main/resources/instructions.png)
 
+## Live Demo
+
+Try the application live [here](https://steganograph.onrender.com/)
+
+Note: The application is hosted on a free hosting service, so it may take up to 50 seconds to respond on the first access. Please be patient while it loads.
+
 ## What is Steganography?
 
 Steganography is the practice of concealing a message within another non-secret file or message. In this application, we use the least significant bit (LSB) technique to hide text messages within image files without noticeably altering the image's appearance.
